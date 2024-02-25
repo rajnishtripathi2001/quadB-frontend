@@ -1,54 +1,116 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+  width: 250px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #252526;
+}
+
+.card img {
+  width: 250px;
+  height: 200px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.card h3,
+p {
+  margin: 5px 0;
+}
+
+.card-bottom{
+display: flex;
+  justify-content: space-between;
+ align-items: center;
+ width: 100%;
+ height: fit-content;
+
+}
+
+.raitng-box{
+  display:  flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50px;
+}
+
+.raitng-box img{
+  width: 10px;
+  height: 10px;
+}
+.card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination button:first-child {
+  margin-right: 10px;
+}
+
+.pagination button:last-child {
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .pagination button:not(:first-child):not(:last-child) {
+    display: none;
   }
-  
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .card {
-    margin: 10px;
-    padding:  10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-    transition: 0.3s;
-    width: 250px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #252526;
-  }
-  
-  .card img {
-    width: 250px;
-    height: 200px;
-    margin: 10px 0;
-    border-radius: 5px;
-  }
-  
-  .card h3,p{
-    margin: 5px 0;
-  }
-  
-  .card button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-  }
+}

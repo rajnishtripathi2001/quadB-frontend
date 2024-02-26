@@ -5,19 +5,19 @@ import Header from "../Header/Header";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const [shows, setShows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const showsPerPage = 12;
   const maxPageButtons = 5;
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 5000);
+  // }, []);
 
   useEffect(() => {
     fetch("https://api.tvmaze.com/shows")
@@ -58,54 +58,45 @@ export default function HomePage() {
   }
 
   return (
-    <>
-      {loading ? (
-        <div className="loader">
-          <div className="spinner"></div>
-          <span>Loading...</span>
-        </div>
-      ) : (
-        <div className="home-container">
-          <Header />
+    <div className="home-container">
+      <Header />
 
-          <div className="card-container">
-            {currentShows.map((show) => (
-              <div className="card" key={show.id}>
-                <img src={show.image.medium} alt={show.name} />
-                <h3>{show.name}</h3>
-                <p>{show.genres.join(", ")}</p>
-                <div className="card-bottom">
-                  <div className="raitng-box">
-                    <img src="../../star.png" alt="sd" />
-                    {show.rating.average}
-                  </div>
-                  <button onClick={() => showMore(show.id)}>Show More</button>
-                </div>
+      <div className="card-container">
+        {currentShows.map((show) => (
+          <div className="card" key={show.id}>
+            <img src={show.image.medium} alt={show.name} />
+            <h3>{show.name}</h3>
+            <p>{show.genres.join(", ")}</p>
+            <div className="card-bottom">
+              <div className="raitng-box">
+                <img src="../../star.png" alt="sd" />
+                {show.rating.average}
               </div>
-            ))}
+              <button onClick={() => showMore(show.id)}>Show More</button>
+            </div>
           </div>
+        ))}
+      </div>
 
-          <div className="pagination">
-            {currentPage > 1 && (
-              <button onClick={() => paginate(currentPage - 1)}>&lt;</button>
-            )}
+      <div className="pagination">
+        {currentPage > 1 && (
+          <button onClick={() => paginate(currentPage - 1)}>&lt;</button>
+        )}
 
-            {pageNumbers.map((number) => (
-              <button
-                key={number}
-                onClick={() => paginate(number)}
-                className={currentPage === number ? "active" : ""}
-              >
-                {number}
-              </button>
-            ))}
+        {pageNumbers.map((number) => (
+          <button
+            key={number}
+            onClick={() => paginate(number)}
+            className={currentPage === number ? "active" : ""}
+          >
+            {number}
+          </button>
+        ))}
 
-            {currentPage < totalPages && (
-              <button onClick={() => paginate(currentPage + 1)}>&gt;</button>
-            )}
-          </div>
-        </div>
-      )}
-    </>
+        {currentPage < totalPages && (
+          <button onClick={() => paginate(currentPage + 1)}>&gt;</button>
+        )}
+      </div>
+    </div>
   );
 }

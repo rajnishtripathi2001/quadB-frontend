@@ -15,11 +15,14 @@ export default function ShowDetail() {
       .then((response) => response.json())
       .then((data) => {
         setShow(data);
+        document.title = data.name + " - TV Shows";
       })
       .catch((error) => {
         console.error("Error fetching show:", error);
       });
   }, [id]);
+
+
 
   const BookTicket = (name) => {
     console.log(name);

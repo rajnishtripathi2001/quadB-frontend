@@ -5,18 +5,26 @@ import Header from "../Header/Header";
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const [shows, setShows] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const showsPerPage = 12; 
-  const maxPageButtons = 5; 
+  const showsPerPage = 12;
+  const maxPageButtons = 5;
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, []);
 
   useEffect(() => {
     fetch("https://api.tvmaze.com/shows")
       .then((response) => response.json())
       .then((data) => {
         setShows(data);
-        console.log(data)
+        console.log(data);
       });
   }, []);
 
@@ -38,7 +46,10 @@ export default function HomePage() {
       pageNumbers.push(i);
     }
   } else {
-    const leftOffset = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
+    const leftOffset = Math.max(
+      currentPage - Math.floor(maxPageButtons / 2),
+      1
+    );
     const rightOffset = Math.min(leftOffset + maxPageButtons - 1, totalPages);
 
     for (let i = leftOffset; i <= rightOffset; i++) {
@@ -47,48 +58,54 @@ export default function HomePage() {
   }
 
   return (
-    <div className="home-container">
-      {/* <h1>TV Shows</h1> */}
-      <Header/>
+    <>
+      {loading ? (
+        <div className="loader">
+          <div className="spinner"></div>
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div className="home-container">
+          <Header />
 
-      <div className="card-container">
-        {currentShows.map((show) => (
-          <div className="card" key={show.id}>
-            <img src={show.image.medium} alt={show.name} />
-            <h3>{show.name}</h3>
-            <p>{show.genres.join(", ")}</p>
-            <div className="card-bottom">
-              <div className="raitng-box">
-                <img src="../../star.png"  alt="sd" />
-                {show.rating.average}</div>
-            <button onClick={() => showMore(show.id)}>Show More</button>
-            </div>
+          <div className="card-container">
+            {currentShows.map((show) => (
+              <div className="card" key={show.id}>
+                <img src={show.image.medium} alt={show.name} />
+                <h3>{show.name}</h3>
+                <p>{show.genres.join(", ")}</p>
+                <div className="card-bottom">
+                  <div className="raitng-box">
+                    <img src="../../star.png" alt="sd" />
+                    {show.rating.average}
+                  </div>
+                  <button onClick={() => showMore(show.id)}>Show More</button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Pagination */}
-      <div className="pagination">
-        {currentPage > 1 && (
-          <button onClick={() => paginate(currentPage - 1)}>&lt;</button>
-        )}
+          <div className="pagination">
+            {currentPage > 1 && (
+              <button onClick={() => paginate(currentPage - 1)}>&lt;</button>
+            )}
 
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            onClick={() => paginate(number)}
-            className={currentPage === number ? "active" : ""}
-          >
-            {number}
-          </button>
-        ))}
+            {pageNumbers.map((number) => (
+              <button
+                key={number}
+                onClick={() => paginate(number)}
+                className={currentPage === number ? "active" : ""}
+              >
+                {number}
+              </button>
+            ))}
 
-        {currentPage < totalPages && (
-          <button onClick={() => paginate(currentPage + 1)}>&gt;</button>
-        )}
-      </div>
-    </div>
+            {currentPage < totalPages && (
+              <button onClick={() => paginate(currentPage + 1)}>&gt;</button>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
-
-
